@@ -129,9 +129,22 @@
     <SolidColorBrush x:Key="SecondButtonBackground" Color="White"/>
     <SolidColorBrush x:Key="InnerBorderBrush" Color="DimGray"/>
 
+    <LinearGradientBrush x:Key="MouseOverBackground2">
+        <GradientStop Color="#c9ccce" Offset="0"></GradientStop>
+        <GradientStop Color="LightGray" Offset="0.3"></GradientStop>
+        <GradientStop Color="#dbdbdc" Offset="0.5"></GradientStop>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BackgroundBrush2">
+        <GradientStop Color="#dbdbdc" Offset="0"></GradientStop>
+        <GradientStop Color="LightGray" Offset="0.3"></GradientStop>
+        <GradientStop Color="#c9ccce" Offset="0.5"></GradientStop>
+    </LinearGradientBrush>
+
+
     <Style x:Key="SecondButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="{StaticResource SecondButtonBackground}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource SecondButtonBorderBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BackgroundBrush2}"/>
         <Setter Property="Foreground" Value="{StaticResource BorderBrush}"/>
         <Setter Property="FontFamily" Value="Bahnschrift SemiBold SemiCondensed"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -181,7 +194,7 @@
                     <ControlTemplate.Triggers>                        
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource SecondButtonBorderBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MouseOverBackground2}"/>
                         </Trigger>                        
                         <Trigger Property="IsChecked" Value="True">                            
                             <Trigger.EnterActions>
@@ -205,7 +218,7 @@
                                                 From="RoyalBlue" To="DarkBlue" 
                                                 Duration="0:0:0.3"
                                                 AutoReverse="True"
-                                                BeginTime="0:0:0.3" />                                      
+                                                BeginTime="0:0:0.3"/>                                      
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>

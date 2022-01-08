@@ -7,7 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ToggleButton Width="150" Height="150" Margin="50" Style="{DynamicResource FirstButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ToggleButton Style="{DynamicResource SecondButtonStyle}" Width="180" Height="50" />
+        <ToggleButton Width="150" 
+                      Height="150" 
+                      Margin="50" 
+                      HorizontalAlignment="Left" 
+                      VerticalAlignment="Top"
+                      Style="{StaticResource FirstButtonStyle}"/>
+        <ToggleButton  Width="180" 
+                       Height="50" 
+                       Style="{StaticResource SecondButtonStyle}"/>
     </Grid>
 </Window>
