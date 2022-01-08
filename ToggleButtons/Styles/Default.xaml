@@ -1,0 +1,244 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:ToggleButtons.Styles">
+
+    <BitmapImage x:Key="MyImageSource" UriSource="/Styles/111-removebg-preview.png"/>
+    
+    <LinearGradientBrush x:Key="MouseOverBackground">
+        <GradientStop Color="#c9ccce" Offset="0"></GradientStop>
+        <GradientStop Color="LightGray" Offset="0.3"></GradientStop>
+        <GradientStop Color="#dbdbdc" Offset="0.5"></GradientStop>
+        <GradientStop Color="White" Offset="0.7"></GradientStop>        
+    </LinearGradientBrush>   
+    
+    <LinearGradientBrush x:Key="BackgroundBrush">
+        <GradientStop Color="White" Offset="0"></GradientStop>
+        <GradientStop Color="#dbdbdc" Offset="0.3"></GradientStop>
+        <GradientStop Color="LightGray" Offset="0.5"></GradientStop>
+        <GradientStop Color="#c9ccce" Offset="0.7"></GradientStop>
+    </LinearGradientBrush>
+    
+    <SolidColorBrush x:Key="BorderBrush" Color="#FF707070"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+    
+    <Style x:Key="FirstButtonStyle" TargetType="{x:Type ToggleButton}">        
+        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"                             
+                            CornerRadius="15">                       
+                        <Grid>                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.4*"></RowDefinition>
+                                <RowDefinition Height="1.5*"></RowDefinition>
+                                <RowDefinition Height="0.1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Grid.Column="0"
+                                     Grid.Row="0">
+                                <TextBlock Text="OFF" 
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       Margin="0,10,0,0"
+                                       Foreground="{TemplateBinding BorderBrush}"/>
+                            </Viewbox>
+                            <Viewbox Grid.Column="1" 
+                                       Grid.Row="0">
+                                <TextBlock Text="ON"                                         
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                       Margin="0,10,0,0" 
+                                       Foreground="{TemplateBinding BorderBrush}"/>
+                            </Viewbox>                            
+                            <Viewbox Grid.Row="1" 
+                                     Grid.ColumnSpan="2"
+                                     Margin="10">
+                                <Ellipse x:Name="OuterEllipse" 
+                                         Width="200" 
+                                         Height="200" 
+                                         Stroke="{TemplateBinding BorderBrush}">
+                                    <Ellipse.Fill>
+                                        <SolidColorBrush x:Name="theColor" Color="Pink"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </Viewbox>
+                            <Viewbox Grid.Row="1" 
+                                     Grid.ColumnSpan="2"
+                                     Panel.ZIndex="1" 
+                                     Margin="20">
+                                <Ellipse x:Name="InnerEllipse" 
+                                         Width="200" 
+                                         Height="200" 
+                                         RenderTransformOrigin=".5,.5" 
+                                         Stroke="{TemplateBinding BorderBrush}">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{StaticResource MyImageSource}" Stretch="Fill"></ImageBrush>
+                                    </Ellipse.Fill>
+                                    <Ellipse.RenderTransform>
+                                        <TransformGroup>
+                                            <RotateTransform x:Name="AnimatedRotateTransform"/>
+                                        </TransformGroup>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                            </Viewbox>                            
+                        </Grid>                           
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource MouseOverBackground}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="AnimatedRotateTransform" Storyboard.TargetProperty="Angle"  Duration="0:0:0.5" To="90"/>
+                                        <ColorAnimation Storyboard.TargetName="theColor" Storyboard.TargetProperty="Color" From="Pink" To="Lime"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="AnimatedRotateTransform" Storyboard.TargetProperty="Angle"  Duration="0:0:0.5" To="0"/>
+                                        <ColorAnimation Storyboard.TargetName="theColor" Storyboard.TargetProperty="Color" From="Lime" To="Pink"/>
+                                    </Storyboard>
+                                </BeginStoryboard>                                    
+                            </Trigger.ExitActions>
+                        </Trigger>                
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>        
+    </Style>
+
+    <SolidColorBrush x:Key="SecondButtonBorderBrush" Color="LightGray"/>
+    <SolidColorBrush x:Key="SecondButtonBackground" Color="White"/>
+    <SolidColorBrush x:Key="InnerBorderBrush" Color="DimGray"/>
+
+    <Style x:Key="SecondButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background" Value="{StaticResource SecondButtonBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource SecondButtonBorderBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="FontFamily" Value="Bahnschrift SemiBold SemiCondensed"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="BorderThickness" Value="10"/>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="10">
+                       <Grid x:Name="parent"> 
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="ON" 
+                                       FontWeight="{TemplateBinding FontWeight}" 
+                                       FontFamily="{TemplateBinding FontFamily}" 
+                                       Foreground="{TemplateBinding Foreground}"/>
+                            </Viewbox>
+                            <Viewbox HorizontalAlignment="Right">
+                                <Label Content="OFF" 
+                                       FontWeight="{TemplateBinding FontWeight}" 
+                                       FontFamily="{TemplateBinding FontFamily}" 
+                                       Foreground="{TemplateBinding Foreground}"/>
+                            </Viewbox>
+                            <Viewbox x:Name="Switcher" HorizontalAlignment="Left">
+                                <Rectangle Width="{Binding Path=ActualWidth, ElementName=parent, Converter={converters:WidthConverter}, ConverterParameter='0,9'}" 
+                                           Height="{TemplateBinding Height}"  
+                                           StrokeThickness="2"
+                                           Stroke="{StaticResource InnerBorderBrush}">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush>
+                                            <GradientStop x:Name="Brush1" Color="LightBlue" Offset="0"></GradientStop>
+                                            <GradientStop x:Name="Brush2" Color="RoyalBlue" Offset="0.5"></GradientStop>
+                                            <GradientStop Color="DarkBlue" Offset="0.7"></GradientStop>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Viewbox>
+                            <Border BorderBrush="{StaticResource InnerBorderBrush}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="5"
+                                    HorizontalAlignment="Stretch"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>                        
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource SecondButtonBorderBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderBrush}"/>
+                        </Trigger>                        
+                        <Trigger Property="IsChecked" Value="True">                            
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>                                        
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Switcher" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <HorizontalAlignment>Right</HorizontalAlignment>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation 
+                                                Storyboard.TargetName="Brush1"
+                                                Storyboard.TargetProperty="Offset"
+                                                From="0.0" To="1.0" Duration="0:0:0.3"
+                                                AutoReverse="True" />
+                                        <ColorAnimation 
+                                                Storyboard.TargetName="Brush2"
+                                                Storyboard.TargetProperty="Color"
+                                                From="RoyalBlue" To="DarkBlue" 
+                                                Duration="0:0:0.3"
+                                                AutoReverse="True"
+                                                BeginTime="0:0:0.3" />                                      
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Switcher" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <HorizontalAlignment>Left</HorizontalAlignment>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation 
+                                                Storyboard.TargetName="Brush1"
+                                                Storyboard.TargetProperty="Offset"
+                                                From="0.0" To="1.0" Duration="0:0:0.3"
+                                                AutoReverse="True" />
+                                        <ColorAnimation 
+                                                Storyboard.TargetName="Brush2"
+                                                Storyboard.TargetProperty="Color"
+                                                From="RoyalBlue" To="DarkBlue" 
+                                                Duration="0:0:0.3"
+                                                AutoReverse="True"
+                                                BeginTime="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>
