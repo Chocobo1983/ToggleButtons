@@ -47,7 +47,7 @@ namespace MyButton
     public class MyButton : Button
     {
 
-        public static readonly DependencyProperty IsOnProperty = DependencyProperty.Register("IsOn", typeof(bool), typeof(MyButton));
+        public static readonly DependencyProperty IsOnProperty = DependencyProperty.Register("IsOn", typeof(bool), typeof(MyButton), new PropertyMetadata(default));
         public bool IsOn
         {
             get { return (bool)GetValue(IsOnProperty); }
@@ -72,7 +72,7 @@ namespace MyButton
         private void SwitchState()
         {
             System.Threading.Thread.Sleep(3000);
-            _switcher = false;                      
+            _switcher = false;            
         }
     }
 }

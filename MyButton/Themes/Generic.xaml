@@ -103,7 +103,6 @@
         <Setter Property="BorderBrush" Value="{StaticResource SelectedBorderBrush}"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Foreground" Value="{StaticResource ActiveBrush}"/>
-        <Setter Property="IsOn" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MyButton}">
@@ -126,16 +125,21 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsOn" Value="True">
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsOn" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
                             <Setter Property="Background" Value="{StaticResource IsOnBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsOn" Value="False">
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsOn" Value="False"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
                             <Setter Property="Background" Value="{StaticResource IsOffBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="{StaticResource IsDisabledBackground}"/>
-                            <Setter Property="Foreground" Value="{StaticResource NotActiveBrush}"/>
-                        </Trigger>
+                        </MultiTrigger>
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
