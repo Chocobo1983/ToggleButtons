@@ -80,12 +80,14 @@
                                      Panel.ZIndex="1" 
                                      Margin="20">
                                 <Ellipse x:Name="InnerEllipse" 
-                                         Width="200" 
-                                         Height="200" 
+                                         Width="{Binding Path=ActualWidth, ElementName=OuterEllipse, Converter={converters:WidthConverter}, ConverterParameter='0,9'}" 
+                                         Height="{Binding Path=ActualHeight, ElementName=OuterEllipse, Converter={converters:WidthConverter}, ConverterParameter='0,9'}" 
                                          RenderTransformOrigin=".5,.5" 
                                          Stroke="{TemplateBinding BorderBrush}">
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{StaticResource MyImageSource}" Stretch="Fill"></ImageBrush>
+                                        <ImageBrush ImageSource="{StaticResource MyImageSource}" 
+                                                    Stretch="Uniform">
+                                        </ImageBrush>
                                     </Ellipse.Fill>
                                     <Ellipse.RenderTransform>
                                         <TransformGroup>
@@ -106,7 +108,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="AnimatedRotateTransform" Storyboard.TargetProperty="Angle"  Duration="0:0:0.5" To="90"/>
-                                        <ColorAnimation Storyboard.TargetName="theColor" Storyboard.TargetProperty="Color" From="Pink" To="Lime"/>
+                                        <ColorAnimation Storyboard.TargetName="theColor" Storyboard.TargetProperty="Color" To="Lime"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -114,7 +116,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="AnimatedRotateTransform" Storyboard.TargetProperty="Angle"  Duration="0:0:0.5" To="0"/>
-                                        <ColorAnimation Storyboard.TargetName="theColor" Storyboard.TargetProperty="Color" From="Lime" To="Pink"/>
+                                        <ColorAnimation Storyboard.TargetName="theColor" Storyboard.TargetProperty="Color" To="Pink"/>
                                     </Storyboard>
                                 </BeginStoryboard>                                    
                             </Trigger.ExitActions>

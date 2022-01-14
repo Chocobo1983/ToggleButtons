@@ -5,12 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:MyNamespace="clr-namespace:MyButton;assembly=MyButton"
         xmlns:local="clr-namespace:ToggleButtons"
-        xmlns:viewmodel="clr-namespace:ToggleButtons.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Window.DataContext>
-        <viewmodel:DemonstrateViewModel/>
-    </Window.DataContext>
+    
     <Grid>
         <ToggleButton Width="150" 
                       Height="150" 
@@ -18,17 +15,17 @@
                       HorizontalAlignment="Left" 
                       VerticalAlignment="Top"
                       Style="{StaticResource FirstButtonStyle}"/>
-        <ToggleButton  Width="180" 
+        <ToggleButton  x:Name="Switch"
+                       Width="180" 
                        Height="50" 
-                       Style="{StaticResource SecondButtonStyle}"
-                       Command="{Binding EnableStatusSwitchCommand}"/>
+                       Style="{StaticResource SecondButtonStyle}"/>
         <MyNamespace:MyButton HorizontalAlignment="Right" 
                               VerticalAlignment="Top" 
                               Margin="0,100,100,0" 
                               Width="150" 
-                              Height="150" 
-                              IsEnabled="{Binding IsEnabled}"
-                              IsOn="{Binding IsOn, Mode=TwoWay}">
+                              Height="150"
+                              IsOn="{Binding ElementName=Switch, Path=IsChecked}"
+                              IsEnabled="{Binding ElementName=Switch, Path=IsChecked}">
                               
         </MyNamespace:MyButton>
     </Grid>
