@@ -12,7 +12,6 @@ namespace MyButton
         protected async override void OnClick()
         {
             base.OnClick();            
-            //timer.Stop();
             if (IsOn) SetCurrentValue(IsOnProperty, false);
             else
             {
@@ -26,7 +25,6 @@ namespace MyButton
             get { return (bool)GetValue(IsOnProperty); }
             set { SetValue(IsOnProperty, value); }
         }
-        //DispatcherTimer timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(3) };       
         static MyButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MyButton), new FrameworkPropertyMetadata(typeof(MyButton)));
@@ -35,7 +33,6 @@ namespace MyButton
         {
             IsEnabledChanged += async (s, e) => 
             {
-                //timer.Stop();
                 if(IsOn)
                 {
                     SetCurrentValue(IsOnProperty, true);
