@@ -21,17 +21,7 @@
     <StreamGeometry x:Key="PowerIcon">
         M10.5,1.674V4c1.215,0.912,2,2.364,2,4c0,2.762-2.238,5-5,5s-5-2.238-5-5c0-1.636,0.785-3.088,2-4   V1.674C2.135,2.797,0.5,5.208,0.5,8c0,3.866,3.134,7,7,7s7-3.134,7-7C14.5,5.208,12.865,2.797,10.5,1.674zM8.5,7.003V0.997C8.5,0.446,8.056,0,7.5,0c-0.553,0-1,0.453-1,0.997v6.006C6.5,7.554,6.944,8,7.5,8   C8.053,8,8.5,7.547,8.5,7.003z
     </StreamGeometry>
-
-    <DataTemplate x:Key="PowerIconTemplate">
-        <Viewbox Width="{Binding Path=ActualWidth, ElementName=highlightCircle, Converter={local:WidthConverter}, ConverterParameter='0,7'}">
-            <Path   x:Name="MyPath"
-                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:MyButton}}}"
-                    Data="{StaticResource PowerIcon}"/>
-        </Viewbox>
-    </DataTemplate>
-
-
-
+   
     <Style TargetType="{x:Type local:MyButton}">
         <Setter Property="Background" Value="{StaticResource BorderBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource SelectedBorderBrush}"/>
@@ -60,7 +50,16 @@
                                 </LinearGradientBrush>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" ContentTemplate="{StaticResource PowerIconTemplate}"/>
+                        <ContentPresenter x:Name="content">
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <Path   Stretch="Uniform"
+                                            Width="{Binding Path=ActualWidth, ElementName=highlightCircle, Converter={local:WidthConverter}, ConverterParameter='0,7'}"
+                                            Fill="{Binding Path=(TextElement.Foreground), RelativeSource={RelativeSource Self}}"
+                                            Data="{StaticResource PowerIcon}"/>
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsPressed" Value="True">
@@ -84,22 +83,15 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsOn" Value="True"/>
-                    <Condition Property="IsEnabled" Value="True"/>
-                </MultiTrigger.Conditions>
+            <Trigger Property="IsOn" Value="True">
                 <Setter Property="Background" Value="{StaticResource IsOnBrush}"/>
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsOn" Value="False"/>
-                    <Condition Property="IsEnabled" Value="True"/>
-                </MultiTrigger.Conditions>
+            </Trigger>
+            <Trigger Property="IsOn" Value="False">
                 <Setter Property="Background" Value="{StaticResource IsOffBrush}"/>
-            </MultiTrigger>            
+            </Trigger>            
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{StaticResource NotActiveBrush}"/>                
+                <Setter Property="Foreground" Value="{StaticResource NotActiveBrush}"/>
+                <Setter Property="Background" Value="{StaticResource BorderBrush}"/>
             </Trigger>            
         </Style.Triggers>
     </Style>  
