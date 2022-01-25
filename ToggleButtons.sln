@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToggleButtons", "ToggleButtons\ToggleButtons.csproj", "{AAF3B5E2-CCD7-4C2D-9433-5F2FFC5CBE95}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BAF8E1E7-26F7-49DC-AC53-6CE4BBED5B30} = {BAF8E1E7-26F7-49DC-AC53-6CE4BBED5B30}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyButton", "MyButton\MyButton.csproj", "{5DB34CE5-C930-48B9-B680-0A54DD212244}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyButton", "MyButton\MyButton.csproj", "{5DB34CE5-C930-48B9-B680-0A54DD212244}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decorators", "Decorators\Decorators.csproj", "{BAF8E1E7-26F7-49DC-AC53-6CE4BBED5B30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{5DB34CE5-C930-48B9-B680-0A54DD212244}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DB34CE5-C930-48B9-B680-0A54DD212244}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DB34CE5-C930-48B9-B680-0A54DD212244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAF8E1E7-26F7-49DC-AC53-6CE4BBED5B30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAF8E1E7-26F7-49DC-AC53-6CE4BBED5B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAF8E1E7-26F7-49DC-AC53-6CE4BBED5B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAF8E1E7-26F7-49DC-AC53-6CE4BBED5B30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -54,7 +54,7 @@
                             <ContentPresenter.ContentTemplate>
                                 <DataTemplate>
                                     <Path   Stretch="Uniform"
-                                            Width="{Binding Path=ActualWidth, ElementName=highlightCircle, Converter={local:WidthConverter}, ConverterParameter='0,7'}"
+                                            Width="{Binding Path=ActualWidth, ElementName=highlightCircle, Converter={local:WidthConverter}, ConverterParameter='0.8'}"
                                             Fill="{Binding Path=(TextElement.Foreground), RelativeSource={RelativeSource Self}}"
                                             Data="{StaticResource PowerIcon}"/>
                                 </DataTemplate>

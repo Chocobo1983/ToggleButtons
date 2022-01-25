@@ -6,4 +6,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="ManagedHelpers">
+      <HintPath>..\..\Task4\MyControl\bin\Debug\net6.0-windows\ManagedHelpers.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

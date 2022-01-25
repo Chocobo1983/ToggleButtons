@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:ToggleButtons.Styles">
+                    xmlns:converters="clr-namespace:ToggleButtons.Styles"
+                    xmlns:decorator="clr-namespace:Decorators;assembly=Decorators">
 
-    <BitmapImage x:Key="MyImageSource" UriSource="/Styles/111-removebg-preview.png"/>
+    <BitmapImage x:Key="MyImageSource" UriSource="../Styles/111-removebg-preview.png"/>
     
     <LinearGradientBrush x:Key="MouseOverBackground">
         <GradientStop Color="#c9ccce" Offset="0"></GradientStop>
@@ -80,8 +81,8 @@
                                      Panel.ZIndex="1" 
                                      Margin="20">
                                 <Ellipse x:Name="InnerEllipse" 
-                                         Width="{Binding Path=ActualWidth, ElementName=OuterEllipse, Converter={converters:WidthConverter}, ConverterParameter='0,9'}" 
-                                         Height="{Binding Path=ActualHeight, ElementName=OuterEllipse, Converter={converters:WidthConverter}, ConverterParameter='0,9'}" 
+                                         Width="{Binding Path=ActualWidth, ElementName=OuterEllipse, Converter={converters:WidthConverter}, ConverterParameter='0.9'}" 
+                                         Height="{Binding Path=ActualHeight, ElementName=OuterEllipse, Converter={converters:WidthConverter}, ConverterParameter='0.9'}" 
                                          RenderTransformOrigin=".5,.5" 
                                          Stroke="{TemplateBinding BorderBrush}">
                                     <Ellipse.Fill>
@@ -160,21 +161,29 @@
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             Background="{TemplateBinding Background}"
                             CornerRadius="10">
-                       <Grid x:Name="parent"> 
-                            <Viewbox HorizontalAlignment="Left">
-                                <Label Content="ON" 
+                        <Grid x:Name="parent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="ON" 
                                        FontWeight="{TemplateBinding FontWeight}" 
-                                       FontFamily="{TemplateBinding FontFamily}" 
-                                       Foreground="{TemplateBinding Foreground}"/>
-                            </Viewbox>
-                            <Viewbox HorizontalAlignment="Right">
-                                <Label Content="OFF" 
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Grid.Column="0" 
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="20,0,0,0"/>
+                            <TextBlock Text="OFF" 
                                        FontWeight="{TemplateBinding FontWeight}" 
-                                       FontFamily="{TemplateBinding FontFamily}" 
-                                       Foreground="{TemplateBinding Foreground}"/>
-                            </Viewbox>
-                            <Viewbox x:Name="Switcher" HorizontalAlignment="Left">
-                                <Rectangle Width="{Binding Path=ActualWidth, ElementName=parent, Converter={converters:WidthConverter}, ConverterParameter='0,9'}" 
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Grid.Column="1" 
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,20,0"/>
+                            <decorator:TranslateDecorator x:Name="Decorator" Grid.Column="0" Grid.ColumnSpan="2" TranslateXParent="-0.25">
+                                <Rectangle Width="{Binding Path=ActualWidth, ElementName=parent, Converter={converters:WidthConverter}, ConverterParameter='0.5'}"  
                                            Height="{TemplateBinding Height}"  
                                            StrokeThickness="2"
                                            Stroke="{StaticResource InnerBorderBrush}">
@@ -186,29 +195,21 @@
                                         </LinearGradientBrush>
                                     </Rectangle.Fill>
                                 </Rectangle>
-                            </Viewbox>
-                            <Border BorderBrush="{StaticResource InnerBorderBrush}" 
-                                    BorderThickness="1" 
-                                    CornerRadius="5"
-                                    HorizontalAlignment="Stretch"/>
+                            </decorator:TranslateDecorator>
                         </Grid>
                     </Border>
-                    <ControlTemplate.Triggers>                        
+                    <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource SecondButtonBorderBrush}"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MouseOverBackground2}"/>
-                        </Trigger>                        
-                        <Trigger Property="IsChecked" Value="True">                            
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
-                                    <Storyboard>                                        
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Switcher" Storyboard.TargetProperty="HorizontalAlignment">
-                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <HorizontalAlignment>Right</HorizontalAlignment>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Decorator"
+                                                         Storyboard.TargetProperty="TranslateXParent" To="0.25" Duration="0:0:0.3"/>
+
                                         <DoubleAnimation 
                                                 Storyboard.TargetName="Brush1"
                                                 Storyboard.TargetProperty="Offset"
@@ -220,20 +221,15 @@
                                                 From="RoyalBlue" To="DarkBlue" 
                                                 Duration="0:0:0.3"
                                                 AutoReverse="True"
-                                                BeginTime="0:0:0.3"/>                                      
+                                                BeginTime="0:0:0.3"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Switcher" Storyboard.TargetProperty="HorizontalAlignment">
-                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <HorizontalAlignment>Left</HorizontalAlignment>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="Decorator"
+                                                         Storyboard.TargetProperty="TranslateXParent" To="-0.25" Duration="0:0:0.3"/>
                                         <DoubleAnimation 
                                                 Storyboard.TargetName="Brush1"
                                                 Storyboard.TargetProperty="Offset"

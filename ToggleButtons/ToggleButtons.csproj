@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Decorators\Decorators.csproj" />
     <ProjectReference Include="..\MyButton\MyButton.csproj" />
   </ItemGroup>
 
